@@ -1,0 +1,32 @@
+﻿@using BankAccounts.Models
+@model Transaction
+<a href="/logout">Logout</a>
+<h1>Welcome, @ViewBag.User.FirstName</h1> <br>
+
+<br>
+<p>Total Funds: @ViewBag.Sum.ToString("C2")</p>
+<br>
+<h3>TRANSACTION HISTORY:</h3>
+<table width="50%">
+@{
+        <tr>
+            <td>Transaction Amount</td>
+            <td>Transaction Date</td>
+        </tr>
+        foreach(var transaction in @ViewBag.User.AllTransactions)
+        {
+            <tr>
+                <td>@transaction.Amount.ToString("C2")</td>
+                <td>@transaction.CreatedAt</td>
+            </tr>   
+        }
+    }
+</table>   
+<form action="/withdrawdeposit" method="post">
+    <input type="number" name="Amount">
+    <input name="UserId" value="@ViewBag.User.UserId" hidden>
+    <input type="submit" value="Submit">
+</form>
+
+
+
